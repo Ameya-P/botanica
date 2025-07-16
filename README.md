@@ -1,20 +1,20 @@
-# Web Development Project 5 - *Name of App Here*
+# Web Development Project 5 - *Botanica*
 
-Submitted by: **Your Name Here**
+Submitted by: **Ameya Patkare**
 
-This web app: **insert description**
+This web app: **This is a dashboard that introduces people to a variety of cool plants!**
 
-Time spent: **X** hours spent in total
+Time spent: **5** hours spent in total
 
 ## Required Features
 
 The following **required** functionality is completed:
 
-- [ ] **The site has a dashboard displaying a list of data fetched using an API call**
+- [✅] **The site has a dashboard displaying a list of data fetched using an API call**
   - The dashboard should display at least 10 unique items, one per row
   - The dashboard includes at least two features in each row
-- [ ] **`useEffect` React hook and `async`/`await` are used**
-- [ ] **The app dashboard includes at least three summary statistics about the data** 
+- [✅] **`useEffect` React hook and `async`/`await` are used**
+- [✅] **The app dashboard includes at least three summary statistics about the data** 
   - The app dashboard includes at least three summary statistics about the data, such as:
     - *insert details here*
 - [ ] **A search bar allows the user to search for an item in the fetched data**
@@ -40,22 +40,18 @@ The following **additional** features are implemented:
 
 Here's a walkthrough of implemented user stories:
 
-<img src='http://i.imgur.com/link/to/your/gif/file.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+<img src='https://github.com/Ameya-P/botanica/blob/86f15487b575e3a8d1d8e5d2fb3c2c812cf88acd/public/walkthrough.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
 <!-- Replace this with whatever GIF tool you used! -->
-GIF created with ...  
-<!-- Recommended tools:
-[Kap](https://getkap.co/) for macOS
-[ScreenToGif](https://www.screentogif.com/) for Windows
-[peek](https://github.com/phw/peek) for Linux. -->
+GIF created with ...  MacOS's built-in screen recorder!
 
 ## Notes
 
-Describe any challenges encountered while building the app.
+Attempting to get the search mechanism to work.
 
 ## License
 
-    Copyright [yyyy] [name of copyright owner]
+    Copyright 2025 Ameya Patkar
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
