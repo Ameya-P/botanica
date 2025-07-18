@@ -24,7 +24,7 @@ html {
 
 .app-container {
   display: flex;
-  min-height: 100vh; 
+  height: 100vh; 
 }
 
 .menu {
@@ -36,45 +36,184 @@ html {
   padding: 40px;
 }
 
-li {
-  list-style-type: none;
+.main-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  padding: 10px;
+
+  overflow-y: scroll;
 }
 
-
-/*-----------------------------------------*/
+/*--------------------TEXT STYLING--------------------*/
 h1, h2 {
   font-family: "IM Fell Great Primer", serif;
+}
+
+h1 {
+  font-size: 15rem;
+  font-weight: 1000;
+  transition: 2s ease;
 }
 
 p {
   font-family: "Open Sans", sans-serif;
 }
 
-/*-----------------------------------------*/
+.tagline {
+  font-size: 3rem;
+  font-style: italic;
+  text-align: center;
+  transition: 2s ease;
+}
+
+/* Tablet and smaller */
+@media (max-width: 1200px) {
+  h1 {
+    font-size: 10rem;
+    transition: 2s ease;
+  }
+
+  .tagline {
+    font-size: 2rem;
+    transition: 2s ease;
+  }
+}
+
+@media (max-width: 700px) {
+  h1 {
+    font-size: 7rem;
+    transition: 2s ease;
+  }
+
+  .tagline {
+    font-size: 1.4rem;
+    transition: 2s ease;
+  }
+}
+
+/*--------------------TEXT ANIMATION--------------------*/
+h1 {
+    background: linear-gradient(
+        90deg,
+        #322A1F 0%,
+        #59541C 25%,
+        #8C8640 50%,
+        #59541C 75%,
+        #322A1F 100%
+    );
+    background-size: 400% 100%;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+    animation: gradient-shift 6s ease-in-out infinite;
+}
+
+@keyframes gradient-shift {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+/*--------------------ROW STYLING--------------------*/
 .header, .table-row {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 20px; 
+  gap: 30px; 
 
   padding: 50px;
-  margin: 40px;
+  margin: 60px;
 
-  border-radius: 50px;
+  border-radius: 40px;
   background-color: #f0e6da;
 
   text-align: center;
+  position: relative;
+
+  box-shadow:
+    0 2.5px 5px rgba(12, 12, 12, 0.05), 
+    0 7.5px 20px rgba(19, 19, 19, 0.2);
 }
 
-button {
-  flex: 0 0 50px; 
+.header {
+  background-color: #d7d6ba;
 
-  border: none;
-  background-color: #463A2C;
-  color:#f8f1e8;
-  padding: 20px;
-  border-radius: 100px;
-
-  font-family: "Open Sans", sans-serif;
 }
+
+li {
+  list-style-type: none;
+}
+
+img {
+  border-radius: 20px;
+  height: 15rem;
+}
+
+.row-content {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.name {
+  font-weight: bolder;
+  font-size: 1.9rem;
+  text-transform: uppercase;
+}
+
+.sci-name {
+  font-style: italic;
+  font-size: 1.3rem;
+  margin-bottom: 9px;
+}
+
+.attributes {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+}
+
+.item {
+  padding: 10px;
+  margin: 5px;
+  border-radius: 10px;
+}
+
+.edible {
+  background-color: #d08792;
+}
+
+.life-cycle {
+  background-color: #C5B571;
+}
+
+.water {
+  background-color: #A4BDB4;
+}
+
+.light {
+  background-color: #E8C292;
+}
+
+.soil {
+  background-color: #aa9692;
+}
+
+[class*="search"] {
+  font-size: 1.3rem;
+  font-weight: 500;
+
+  padding: 10px;
+  border-radius: 10px;
+}
+/*--------------------ROW ANIMATION--------------------*/
 

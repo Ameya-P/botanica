@@ -9,17 +9,6 @@ const API_KEY = import.meta.env.VITE_KEY_SECRET
 
 function App() {
   const [plants, setPlants] = useState([])
-  const [viewPlant, setViewPlant] = useState({
-    name: "",
-    sci_name: "",
-    image: "/vite.svg",
-    edible: "",
-    life_cycle: "",
-    water: "",
-    light: "",
-    soil: ""
-  })
-
   const URL = `/api/plants`
 
   useEffect(() => {
@@ -33,16 +22,22 @@ function App() {
           'x-permapeople-key-secret': API_KEY
         }
       });
-
-    console.log('Response status:', response.status);
-    console.log('Response headers:', response.headers);
-    console.log('Content-Type:', response.headers.get('content-type'));
-
-    console.log('Key ID:', import.meta.env.VITE_KEY_ID);
-    console.log('Key Secret:', import.meta.env.VITE_KEY_SECRET);
-
+      
       const data = await response.json();
-      console.log(data)
+
+      // Clean plant data from [0: {key:"key-name", "value:"value-name"}] to {key: "value"}
+      data.plants.map(
+          (plant) => {
+            const plantData = Object.fromEntries(
+              Object.entries(plant.data).map(
+                ([index, kvdict]) => ([kvdict["key"].replaceAll(' ', '_'), kvdict["value"]])
+              )
+            );
+
+            plant.data = plantData;
+          }
+          )
+      
       setPlants(data.plants);
     }
 
@@ -58,9 +53,9 @@ function App() {
       </div>
       <div className='main-content'>
         <h1>Botanica</h1>
-        <p>Your garden of plant knowledge starts here!</p>
+        <p className="tagline">Your garden of plant knowledge starts here!</p>
         <Summary plants={plants}/>
-        <InfoTable plants={plants} setViewPlant={setViewPlant}/>
+        <InfoTable plants={plants}/>
       </div>
     </div>
   )
