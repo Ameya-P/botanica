@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react'
 import TableRow from "./TableRow"
 
 const InfoTable = ({ plants, filterOptions, filteredResults, setFilteredResults }) => {
-  
+
   const [searchInput, setSearchInput] = useState("")
   const [filterType, setFilterType] = useState("None")
   const [selectedItems, setSelectedItems] = useState([]);
@@ -116,7 +116,7 @@ const InfoTable = ({ plants, filterOptions, filteredResults, setFilteredResults 
         plants && filteredResults && filteredResults.map(
           (plant) => (
             <TableRow
-              key={plant.id}
+              id={plant.id}
               name={plant?.name ?? "Unknown"}
               sci_name={plant?.scientific_name ?? "Unknown"}
               image={plant?.images?.thumb ?? "/placeholder.png"}

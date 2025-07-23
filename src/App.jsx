@@ -1,14 +1,12 @@
 import { useState, useEffect } from 'react'
 import './App.css'
-import SideBar from "./components/SideBar"
-import Toggle from "./components/Toggle"
 import InfoTable from "./components/InfoTable"
 import Summary from "./components/Summary"
 const ID = import.meta.env.VITE_KEY_ID
 const API_KEY = import.meta.env.VITE_KEY_SECRET
 
-function App() {
-  const [plants, setPlants] = useState([])
+const App = ({plants, setPlants}) => {
+ 
   const [filterOptions, setFilterOptions] = useState({
     Edible: [],
     Life_cycle: [],
@@ -85,17 +83,11 @@ function App() {
   }, []);
 
   return (
-    <div className="app-container">
-      <div className="menu">
-        <Toggle />
-        <SideBar />
-      </div>
-      <div className='main-content'>
-        <h1>Botanica</h1>
-        <p className="tagline">Your garden of plant knowledge starts here!</p>
-        <Summary plants={plants} filteredResults={filteredResults}/>
-        <InfoTable plants={plants} filterOptions={filterOptions} filteredResults={filteredResults} setFilteredResults={setFilteredResults}/>
-      </div>
+    <div className='main-content'>
+      <h1>Botanica</h1>
+      <p className="tagline">Your garden of plant knowledge starts here!</p>
+      <Summary plants={plants} filteredResults={filteredResults} />
+      <InfoTable plants={plants} filterOptions={filterOptions} filteredResults={filteredResults} setFilteredResults={setFilteredResults} />
     </div>
   )
 }

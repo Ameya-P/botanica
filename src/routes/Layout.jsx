@@ -1,16 +1,13 @@
-import { Outlet, Link } from "react-router-dom"
+import { Outlet } from "react-router-dom"
+import SideBar from "../components/SideBar"
+import Toggle from "../components/Toggle"
 
 function Layout(){
   return (
-    <div>
-        <nav>
-        <ul>
-            <li className="home-link" key="home-button">
-            <Link style={{ color: "white" }} to="/">
-                Home
-            </Link>
-            </li>
-        </ul>
+    <div className="app-container">
+        <nav className="menu">
+            <Toggle />
+            <SideBar />
         </nav>
         <Outlet />
     </div>
@@ -18,3 +15,4 @@ function Layout(){
 }
 
 export default Layout
+

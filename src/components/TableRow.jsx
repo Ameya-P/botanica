@@ -1,5 +1,6 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
+import { Link } from "react-router-dom"
 const ID = import.meta.env.VITE_KEY_ID
 const API_KEY = import.meta.env.VITE_KEY_SECRET
 
@@ -19,6 +20,10 @@ const TableRow = ({ id, name, sci_name, image, edible, life_cycle, water, light,
                     <span className="light item">Light Needs: {light}</span>
                     <span className="soil item">Soil Type: {soil}</span>
                 </div>
+
+                <Link to={`/plantDetails/${id}`}>
+                    <button>Learn More!</button>
+                </Link>
             </div>
         </li>
     )
