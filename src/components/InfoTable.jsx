@@ -2,27 +2,50 @@ import React from 'react'
 import { useState, useEffect } from 'react'
 import TableRow from "./TableRow"
 
-const InfoTable = ({ plants, filterOptions }) => {
-
-  const [filteredResults, setFilteredResults] = useState([])
+const InfoTable = ({ plants, filterOptions, filteredResults, setFilteredResults }) => {
+  
   const [searchInput, setSearchInput] = useState("")
   const [filterType, setFilterType] = useState("None")
   const [selectedItems, setSelectedItems] = useState([]);
 
+  useEffect(() => {
+    let results = plants || [];
 
-  const searchItems = (searchValue) => {
-    setSearchInput(searchValue)
-    if (searchValue !== "") {
-      const filteredData = plants.filter(
+    // Apply search filter
+    if (searchInput !== "") {
+      results = results.filter(
         (plant) => [plant.name, plant.scientific_name].join(" ")
           .toLowerCase()
-          .includes(searchValue.toLowerCase())
-      )
-
-      setFilteredResults(filteredData)
-    } else {
-      setFilteredResults(plants)
+          .includes(searchInput.toLowerCase())
+      );
     }
+
+    // Apply attribute filter
+    console.log(filterType)
+    console.log(selectedItems)
+
+    console.log("Results before filter:", results.length);
+
+    if (filterType !== "None" && selectedItems.length > 0) {
+      results = results.filter((plant) => {
+        const plantValue = plant.data[filterType]?.toString() || "";
+
+        const match = selectedItems.every(item => {
+          const includes = plantValue.toLowerCase().includes(item.toLowerCase().trim());
+          return includes; // You need to return the boolean!
+        });
+
+        return match;
+      });
+
+      console.log("Results after filter:", results.length);
+    }
+
+    setFilteredResults(results);
+  }, [plants, searchInput, filterType, selectedItems])
+
+  const searchItems = (searchValue) => {
+    setSearchInput(searchValue);
   }
 
   const selectAttribute = (value) => {
@@ -41,12 +64,8 @@ const InfoTable = ({ plants, filterOptions }) => {
     const key = keyMapping[convertedKey];
     if (key) {
       setFilterType(key);
+      setSelectedItems([]);
     }
-
-    console.log("Clicked value:", value);
-    console.log("Converted key:", key);
-    console.log("filterOptions[key]:", filterOptions[key]);
-    console.log("Is it an array?", Array.isArray(filterOptions[key]));
   }
 
   const handleCheckboxChange = (item) => {
@@ -71,34 +90,36 @@ const InfoTable = ({ plants, filterOptions }) => {
         </div>
         <div className="search-inputs">
           <input
+          className="find"
             type="text"
             placeholder='Search...'
             onChange={(inputString) => searchItems(inputString.target.value)}
           />
 
           {filterOptions[filterType].map(option => (
-            <label key={option}>
+            <label key={option} className="check-container">
+              {option}
               <input
                 type="checkbox"
                 checked={selectedItems.includes(option)}
                 onChange={() => handleCheckboxChange(option)}
               />
-              {option}
+              <span className="checkmark"></span>
             </label>
           ))}
-          <p>Selected: {selectedItems.join(', ')}</p>
+          <p> <strong>Selected:</strong> {selectedItems.join(', ')}</p>
         </div>
       </li>
 
-      {searchInput.length > 0
+      {filteredResults.length > 0
         ?
         plants && filteredResults && filteredResults.map(
           (plant) => (
             <TableRow
               key={plant.id}
-              name={plant.name ?? "Unknown"}
-              sci_name={plant.scientific_name ?? "Unknown"}
-              image={plant.images.thumb ?? "/placeholder.png"}
+              name={plant?.name ?? "Unknown"}
+              sci_name={plant?.scientific_name ?? "Unknown"}
+              image={plant?.images?.thumb ?? "/placeholder.png"}
               edible={plant.data?.Edible ?? "Unknown"}
               life_cycle={plant.data?.Life_cycle ?? "Unknown"}
               water={plant.data?.Water_requirement ?? "Unknown"}
@@ -112,7 +133,7 @@ const InfoTable = ({ plants, filterOptions }) => {
         plants && plants.map(
           (plant) => (
             <TableRow
-              id={plant.id}
+              key={plant.id}
               name={plant.name ?? "Unknown"}
               sci_name={plant.scientific_name ?? "Unknown"}
               image={plant.images.thumb ?? "/placeholder.png"}

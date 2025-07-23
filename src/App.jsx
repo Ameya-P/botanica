@@ -17,6 +17,8 @@ function App() {
     Soil_type: [],
     None: []
   })
+  const [filteredResults, setFilteredResults] = useState([])
+
   const URL = `/api/plants`
 
   useEffect(() => {
@@ -42,6 +44,13 @@ function App() {
             )
           );
 
+          // If plant data doesn't have a key, fill in that key with unknown
+          plantData.Edible ||= "Unknown";
+          plantData.Life_cycle ||= "Unknown";
+          plantData.Water_requirement ||= "Unknown";
+          plantData.Light_requirement ||= "Unknown";
+          plantData.Soil_type ||= "Unknown";
+
           plant.data = plantData;
 
           // Fill in the filter options
@@ -55,10 +64,12 @@ function App() {
 
             for (const value of values) {
               if (!filterOptions[key].includes(value)) {
-                setFilterOptions({
-                  ...filterOptions,           // Copy existing properties
-                  [key]: filterOptions[key].push(value)      // Override specific property
-                })
+                filterOptions[key].push(value);
+
+                setFilterOptions(prevOptions => ({
+                  ...prevOptions,
+                  [key]: filterOptions[key]
+                }))
               }
             }
           }
@@ -73,7 +84,6 @@ function App() {
     fetchPlants().catch(console.error)
   }, []);
 
-
   return (
     <div className="app-container">
       <div className="menu">
@@ -83,8 +93,8 @@ function App() {
       <div className='main-content'>
         <h1>Botanica</h1>
         <p className="tagline">Your garden of plant knowledge starts here!</p>
-        <Summary plants={plants} />
-        <InfoTable plants={plants} filterOptions={filterOptions}/>
+        <Summary plants={plants} filteredResults={filteredResults}/>
+        <InfoTable plants={plants} filterOptions={filterOptions} filteredResults={filteredResults} setFilteredResults={setFilteredResults}/>
       </div>
     </div>
   )
